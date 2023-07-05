@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+Frontend — тестовое задание
+Предлагаем вам решить тестовое задание.
+Необходимо реализовать небольшое приложение с набором CRUD-операций.
+Предъявляются следующие требования к приложению:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Получить данные с backend'a и вывести их в табличку.
+Сделать кнопку добавления новой записи.
+Запись посылать на бэкэнд.
+Кнопка удаления записи должна быть напротив каждой строки таблицы, по клику запись удаляется запросом на бэкэнде, по успеху — удаляется на фронтэнде.
+Кнопка редактирования должна быть напротив каждой строки таблицы.
 
-## Available Scripts
+По клику на нее, в таблице все инпуты должны стать редактируемыми и на месте кнопки «редактировать», должна появиться кнопка «сохранить».
+По нажатию на «сохранить», должен отправиться запрос на бэкэнд, по успеху — инпуты опять должны стать read only и кнопка поменяться на «редактировать».
 
-In the project directory, you can run:
 
-### `yarn start`
+Сделать инпут для фильтрации.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Ресурсы
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Дизайн в Figma (можете выбрать любой).
 
-### `yarn build`
+Шрифт IBM Plex Mono.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Условия
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Используйте Vue/React.
+Используйте JS/TS.
+Работоспособность проверяйте в актуальном chrome.
+Детали, которых не хватает в задаче, можно выбрать на свое усмотрение.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Есть 3 пути решения. В зависимости от ваших навыков, вы можете выбрать любой удобный
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Реализовать свой небольшой сервер.
+Развернуть docker контейнер с backend:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+npm run server:image # автоматически выполнить настройку сервера
+npm run server:docker # поднимет сервер в контейнере --rm
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# http://localhost:8080/api/users
 
-## Learn More
+Представим, что бэкендеры обещали развернуть среду со следующими методами и интерфейсами, но сейчас у них нет времени (вы можете реализовать свои заглушки отталкиваясь от следующих интерфейсов):
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+interface User {
+  id: number,
+  username: string,
+  phone: string,
+  email: string,
+  register_date: Date,
+  code: number,
+  city: string,
+  createdAt: Date,
+  updatedAt: Date
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+/** Ответ методов POST PUT DELETE */
+interface Response {
+    /** Код ответа */
+    status: number
+    /** Полезная нагрузка в виде Item записи или { <текст ошибки> }, в случае ошибки */
+    payload: User | {}
+}
 
-### Code Splitting
+GET -> /api/users
+interface Response {
+    payload: Item[]
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+POST -> /api/users
+(Content-Type: application/json)
+interface Request {
+    User
+}
 
-### Analyzing the Bundle Size
+PUT -> /api/users/:id
+(Content-Type: application/ json)
+interface Request {
+    User
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+/** id элемента, который необходимо удалить из базы */
+DELETE -> /api/users/:id
+(Content-Type: application/json)
 
-### Making a Progressive Web App
+Перед первым запуском сервера:
+npm run server:prepare
+Для запуска сервера:
+npm run serve
+Решение можно прислать в виде ссылки на любой публичный git-репозиторий: GitHub, Bitbucket, GitLab и т.п.
+Будет плюсом если:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Будет использован TS
+Будет использован линтер
+Будет использован стандарт для коммитов
+Код будет покрыт тестами
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Желаем успехов!
+Если будут какие-то вопросы, пишите - добавим уточнения в репу.
