@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js --ext js,jsx --ignore ./sessions"
+    "dev": "nodemon app.js --ext js,jsx --ignore ./sessions",
+    "dbc": "npx sequelize db:create",
+    "dbm": "npx sequelize db:migrate",
+    "dbl": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate",
+    "dbr": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +24,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "faker": "5.5.0",
     "morgan": "^1.10.0",
     "pg": "^8.11.1",
     "pg-hstore": "^2.3.4",
