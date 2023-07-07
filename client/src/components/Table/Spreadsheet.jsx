@@ -1,9 +1,31 @@
-import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Form, Table } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
 import './Spreadsheet.styles.scss'
 
+import { actionsUsers } from '../../redux/actionsCreators/actionsUsers'
+import { addUser } from '../../redux/asyncActionsCreators/asyncActionUsers'
+
 export default function Spreadsheet({ headerTable ,bodyTable }) {
+
+  const dispatch = useDispatch()
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    mode: 'onBlur',
+  })
+
+  // Добавление новой записи
+  const handleAddRow = (data) => {
+   
+    dispatch(addUser(data))
+    dispatch(actionsUsers.addUser(data))
+  }
+
   return (
     <Table>
       <thead>
@@ -18,9 +40,15 @@ export default function Spreadsheet({ headerTable ,bodyTable }) {
           {
             headerTable.map((col) => 
               <td key={uuidv4()}>
-                <Form.Control
-                  type={col.type}
-                />
+                <form onSubmit={handleSubmit(handleAddRow)}>
+                  <Form.Control
+                    type={col.type}
+                    {...register(`${col.field}`, {
+                      required: 'Поле обязательно к заполнению.',
+                    })}
+                  />
+                  <button type="submit">Click</button>
+                </form>
               </td>)
           }
         </tr>

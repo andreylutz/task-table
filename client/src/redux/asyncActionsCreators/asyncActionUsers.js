@@ -13,11 +13,11 @@ export const getInfoUsers = () => {
   }
 }
 
-export const addUser = (newUser) => {
+export const addUser = (data) => {
   return async (dispatch) => {
     try {
       const response = await api.post('/api/users/add', {
-        data: newUser,
+        data,
       })
 
       dispatch(actionsUsers.addUser(response.data))
