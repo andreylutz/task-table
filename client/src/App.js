@@ -1,35 +1,34 @@
-
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
+import Header from './components/Header/Header'
 import Spreadsheet from './components/Table/Spreadsheet'
+import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
 
 function App() {
 
   const columns = [
-    { field: 'username', fieldName: 'Пользователь' },
-    { field: 'phone', fieldName: 'Номер телефона' },
-    { field: 'email', fieldName: 'Email' },
-    { field: 'register_date', fieldName: 'Дата регистрации' },
-    { field: 'code', fieldName: 'Код' },
-    { field: 'city', fieldName: 'Город' },
+    { field: 'username', fieldName: 'Пользователь', type: 'text' },
+    { field: 'phone', fieldName: 'Номер телефона', type: 'text' },
+    { field: 'email', fieldName: 'Email', type: 'text' },
+    { field: 'register_date', fieldName: 'Дата регистрации', type: 'text' },
+    { field: 'code', fieldName: 'Код', type: 'text' },
+    { field: 'city', fieldName: 'Город', type: 'text' },
   ]
 
-  const { list } = useSelector((state) => state.users)
   const dispatch = useDispatch()
 
+  const { list } = useSelector((state) => state.users)
+
   useEffect(() => {
+    
     dispatch(getInfoUsers())
   }, [dispatch])
 
-  if (list.length === 0) {
-    return
-  }
-  console.log(list)
   return (
     <>
-      <Spreadsheet columns={columns} dataTable={list} />
+      <Header />
+      <Spreadsheet bodyTable={list} headerTable={columns} />
     </>
   )
 }

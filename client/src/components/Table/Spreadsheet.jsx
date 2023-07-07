@@ -1,108 +1,48 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Table } from 'react-bootstrap'
+import { v4 as uuidv4 } from 'uuid'
+import './Spreadsheet.styles.scss'
 
-export default function Spreadsheet({ columns, dataTable }) {
-
-  const [isEdit, setIsEdit] = useState(false)
-  const [rowEdit, setRowEdit] = useState(undefined)
-  const [rowsState, setRowsState] = useState(dataTable)
-  const [editedRow, setEditedRow] = useState()
-  
-  const handleOnChangeField = (e, rowID) => {
-    const { name: fieldName, value } = e.target
-  
-    setEditedRow({
-      id: rowID,
-      [fieldName]: value,
-    })
-  }
-  
+export default function Spreadsheet({ headerTable ,bodyTable }) {
   return (
-    <Table striped bordered hover>
+    <Table>
       <thead>
         <tr>
-          {columns.map((column) => {
-            return <th key={column.field}>{ column.fieldName }</th>
-          })}
+          {
+            headerTable.map((col) => <th key={uuidv4()}>{ col.fieldName }</th>)
+          }
         </tr>
       </thead>
       <tbody>
-        {rowsState.map((row) => {
-          return <tr key={row.id}>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.username : row.username}
-                  id={row.id}
-                  name="username"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
+        <tr className="vis_form_on">
+          {
+            headerTable.map((col) => 
+              <td key={uuidv4()}>
+                <Form.Control
+                  type={col.type}
                 />
-                : row.username
+              </td>)
+          }
+        </tr>
+        {
+          bodyTable.map((row) => 
+            <tr key={uuidv4()}>
+              {
+                headerTable.map((col) => 
+                  <td key={uuidv4()}>
+                    {/* <Form.Control
+                      type="text"
+                      defaultValue={row[col.field]}
+                      id={row.id}
+                      name={col.field}
+                    /> */}
+                    {
+                      row[col.field]
+                    }
+                  </td>)
               }
-            </td>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.phone : row.phone}
-                  id={row.id}
-                  name="phone"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
-                />
-                : `+7 ${row.phone}`
-              }
-            </td>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.email : row.email}
-                  id={row.id}
-                  name="email"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
-                />
-                : row.email
-              }
-            </td>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.register_date : row.register_date}
-                  id={row.id}
-                  name="register_date"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
-                />
-                : row.register_date
-              }
-            </td>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.code : row.code}
-                  id={row.id}
-                  name="code"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
-                />
-                : row.code
-              }
-            </td>
-            <td>
-              { isEdit && rowEdit === row.id
-                ? <Form.Control
-                  type="text"
-                  defaultValue={editedRow ? editedRow.city : row.city}
-                  id={row.id}
-                  name="city"
-                  onChange={ (e) => handleOnChangeField(e, row.id) }
-                />
-                : row.city
-              }
-            </td>
-          </tr>
-        })}
+            </tr>)
+        }
       </tbody>
     </Table>
   )

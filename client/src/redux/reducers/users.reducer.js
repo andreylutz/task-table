@@ -10,7 +10,7 @@ const usersReducer = (state = initialState, action) => {
   case SET_USERS:
     return { ...state, list: [...action.payload] }
   case ADD_USER:
-    return { ...state, list: [action.payload, ...state.list] }
+    return { ...state, list: [...state.list, action.payload] }
   case REMOVE_USER:
     return { ...state, list: state.list.filter((el) => el.id !== action.payload) }
   default:

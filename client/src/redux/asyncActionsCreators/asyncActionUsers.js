@@ -8,7 +8,33 @@ export const getInfoUsers = () => {
 
       dispatch(actionsUsers.setUserInfo(infoUsers.data))
     } catch (e) {
-      console.log(e.response.data)
+      alert(e.response.data)
+    }
+  }
+}
+
+export const addUser = (newUser) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.post('/api/users/add', {
+        data: newUser,
+      })
+
+      dispatch(actionsUsers.addUser(response.data))
+    } catch (e) {
+      alert(e.response.data.detail)
+    }
+  }
+}
+
+export const removeUser = (userId) => {
+  return async (dispatch) => {
+    try {
+      await api.delete(`/api/users/remove/${userId}`)
+
+      dispatch(actionsUsers.removeUser(userId))
+    } catch (e) {
+      alert(e.response.data.detail)
     }
   }
 }
