@@ -13,7 +13,7 @@ export const getInfoUsers = () => {
   }
 }
 
-export const addUser = (data) => {
+export const addUserPost = (data) => {
   return async (dispatch) => {
     try {
       const response = await api.post('/api/users/add', {
@@ -33,6 +33,22 @@ export const removeUser = (userId) => {
       await api.delete(`/api/users/remove/${userId}`)
 
       dispatch(actionsUsers.removeUser(userId))
+    } catch (e) {
+      alert(e.response.data.detail)
+    }
+  }
+}
+
+export const upDataUser = (userId, data) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.put(`/api/users/upd/${userId}`, {
+        data,
+      })
+
+      console.log(response.data)
+
+      // dispatch(actionsUsers.updateUser(response.data))
     } catch (e) {
       alert(e.response.data.detail)
     }

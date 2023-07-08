@@ -1,18 +1,20 @@
 
-import { SET_USERS, ADD_USER, REMOVE_USER } from '../actionsCreators/actionsUsers'
+import { SET_USERS, ADD_USER, REMOVE_USER, UPDATE_USER } from '../actionsCreators/actionsUsers'
 
 const initialState = {
-  list: [],
+  listInfo: [],
 }
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
   case SET_USERS:
-    return { ...state, list: [...action.payload] }
+    return { ...state, listInfo: [...action.payload] }
   case ADD_USER:
-    return { ...state, list: [...state.list, action.payload] }
+    return { ...state, listInfo: [...state.listInfo, action.payload] }
   case REMOVE_USER:
-    return { ...state, list: state.list.filter((el) => el.id !== action.payload) }
+    return { ...state, listInfo: state.listInfo.filter((el) => el.id !== action.payload) }
+  case UPDATE_USER:
+    return { ...state, listInfo: [...action.payload.newData] }
   default:
     return state
   }

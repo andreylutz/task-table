@@ -26,7 +26,7 @@ usersRouter.get('/', async (req, res) => {
         city,
       });
   
-      res.json({ data: newUser });
+      res.json(newUser);
 
     } catch (e) {
       console.log(e);
@@ -47,6 +47,30 @@ usersRouter.get('/', async (req, res) => {
       return res.status(401).end();
     } catch (e) {
       console.log(e)
+    }
+  });
+
+  usersRouter.put('/upd/:id', async (req, res) => {
+    const userId = Number(req.params.id);
+    const { username, phone, email, register_date, code, city } = req.body.data;
+    try {
+      const result = await User.update({ 
+        username, 
+        phone, 
+        email, 
+        register_date, 
+        code, 
+        city
+       }, {
+        where: {
+        id: userId
+        }
+       });
+  
+      res.json(result);
+
+    } catch (e) {
+      console.log(e);
     }
   });
 

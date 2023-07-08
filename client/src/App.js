@@ -8,17 +8,17 @@ import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
 function App() {
 
   const columns = [
-    { field: 'username', fieldName: 'Пользователь', type: 'text' },
-    { field: 'phone', fieldName: 'Номер телефона', type: 'text' },
-    { field: 'email', fieldName: 'Email', type: 'text' },
-    { field: 'register_date', fieldName: 'Дата регистрации', type: 'text' },
-    { field: 'code', fieldName: 'Код', type: 'text' },
-    { field: 'city', fieldName: 'Город', type: 'text' },
+    { id: 1, field: 'username', fieldName: 'Пользователь', type: 'text', key: '765475' },
+    { id: 2, field: 'phone', fieldName: 'Номер телефона', type: 'text', key: '3535345' },
+    { id: 3, field: 'email', fieldName: 'Email', type: 'text', key: '34634321' },
+    { id: 4, field: 'register_date', fieldName: 'Дата регистрации', type: 'text', key: '939842' },
+    { id: 5, field: 'code', fieldName: 'Код', type: 'text', key: '4564564' },
+    { id: 6, field: 'city', fieldName: 'Город', type: 'text', key: '2343456' },
   ]
 
   const dispatch = useDispatch()
 
-  const { list } = useSelector((state) => state.users)
+  const { listInfo } = useSelector((state) => state.users)
 
   useEffect(() => {
     
@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <Header />
-      <Spreadsheet bodyTable={list} headerTable={columns} />
+      <Spreadsheet bodyTable={listInfo} headerTable={columns} />
     </>
   )
 }
