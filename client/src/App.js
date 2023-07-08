@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import './styles/App.scss'
+
 import Header from './components/Header/Header'
 import Spreadsheet from './components/Table/Spreadsheet'
 import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
