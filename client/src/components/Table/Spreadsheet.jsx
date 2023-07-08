@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Form, Table } from 'react-bootstrap'
 import { PencilFill, Save, Trash, XSquare } from 'react-bootstrap-icons'
-import { useForm } from 'react-hook-form'
 import './Spreadsheet.styles.scss'
 
 import { actionsUsers } from '../../redux/actionsCreators/actionsUsers'
-import { addUserPost, removeUser, upDataUser } from '../../redux/asyncActionsCreators/asyncActionUsers'
+import { removeUser, upDataUser } from '../../redux/asyncActionsCreators/asyncActionUsers'
+import FormAddNewUser from '../FormAddNewUser/FormAddNewUser'
 
 export default function Spreadsheet({ headerTable ,bodyTable }) {
 
@@ -15,20 +15,6 @@ export default function Spreadsheet({ headerTable ,bodyTable }) {
   const [rowId, setRowId] = useState(undefined)
 
   const dispatch = useDispatch()
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    mode: 'onBlur',
-  })
-
-  // Добавление новой записи
-  const handleAddRow = (data) => {
-   
-    dispatch(addUserPost(data))
-  }
 
   // Открытия поля редактировние записи
   const handleEdit = (id) => {
@@ -97,22 +83,7 @@ export default function Spreadsheet({ headerTable ,bodyTable }) {
         </tr>
       </thead>
       <tbody>
-        <tr className="vis_form_on">
-          {
-            headerTable.map((col) => 
-              <td key={col.field}>
-                <form onSubmit={handleSubmit(handleAddRow)}>
-                  <Form.Control
-                    type={col.type}
-                    {...register(`${col.field}`, {
-                      required: 'Поле обязательно к заполнению.',
-                    })}
-                  />
-                  <button type="submit">Click</button>
-                </form>
-              </td>)
-          }
-        </tr>
+        <FormAddNewUser columns={headerTable} />
         {
           bodyTable.map((row) => 
             <tr key={row.id}>

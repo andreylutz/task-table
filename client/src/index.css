@@ -7,3 +7,7 @@
   margin: 0;
   font-family: 'IBM Regular';
 }
+
+body {
+  padding: 1.3rem;
+}
