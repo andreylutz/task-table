@@ -4,26 +4,35 @@ import { useForm } from 'react-hook-form'
 import { Form } from 'react-bootstrap'
 
 import { addUserPost } from '../../redux/asyncActionsCreators/asyncActionUsers'
-import { actionsModeEdit } from '../../redux/actionsCreators/actionsModeEdit'
 
 export default function FormAddNewUser({ columns }) {
-
+  
   const { mode } = useSelector((state) => state.modes)
   const dispatch = useDispatch()
-
-  // Добавление новой записи
-  const handleAddRow = (data) => {
-   
-    dispatch(addUserPost(data))
-    dispatch(actionsModeEdit.changeMode())
-  }
-
+  
   const {
     register,
     handleSubmit,
+    reset,
   } = useForm({
     mode: 'onBlur',
   })
+  
+  // Добавление новой записи
+  const handleAddRow = (data) => {
+     
+    dispatch(addUserPost(data))
+    reset(
+      {
+        username: '',
+        phone: '',
+        email: '',
+        register_date: '',
+        code: '',
+        city: '',
+      }
+    )
+  }
 
   return (
     <tr className={ mode ? 'vis_form_on' : 'vis_form_off' }>

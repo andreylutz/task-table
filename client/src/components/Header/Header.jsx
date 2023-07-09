@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { XSquare } from 'react-bootstrap-icons'
 
 import { actionsModeEdit } from '../../redux/actionsCreators/actionsModeEdit'
+
 
 export default function Header() {
 
@@ -18,7 +20,17 @@ export default function Header() {
       alignItems: 'center',
       justifyContent: 'flex-end',
     }}>
-      <button type="submit" form="example" onClick={fieldVisibilityKnob}>{ mode ? 'Сохранить' : 'Добавить' }</button>
+      {
+        mode ? 
+          (
+            <>
+              <button type="submit" form="example">Сохранить</button>
+              <button><XSquare onClick={fieldVisibilityKnob}/></button>
+            </>
+          ) : (
+            <button onClick={fieldVisibilityKnob}>Добавить</button>
+          )
+      }
     </div>
   )
 }
