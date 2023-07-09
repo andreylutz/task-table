@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import './styles/App.scss'
 
 import Header from './components/Header/Header'
-import Spreadsheet from './components/Table/Spreadsheet'
+import Spreadsheet from './components/Spreadsheet/Spreadsheet'
 import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
 
 function App() {
+  const dispatch = useDispatch()
 
   const columns = [
     { id: 1, field: 'username', fieldName: 'Пользователь', type: 'text', key: '765475' },
@@ -18,10 +19,6 @@ function App() {
     { id: 6, field: 'city', fieldName: 'Город', type: 'text', key: '2343456' },
   ]
 
-  const dispatch = useDispatch()
-
-  const { listInfo } = useSelector((state) => state.users)
-
   useEffect(() => {
     
     dispatch(getInfoUsers())
@@ -30,7 +27,7 @@ function App() {
   return (
     <>
       <Header />
-      <Spreadsheet bodyTable={listInfo} headerTable={columns} />
+      <Spreadsheet headerTable={columns} />
     </>
   )
 }
