@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
 import './styles/App.scss'
+
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 
 import Header from './components/Header/Header'
 import Spreadsheet from './components/Spreadsheet/Spreadsheet'

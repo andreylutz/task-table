@@ -42,13 +42,10 @@ export const removeUser = (userId) => {
 export const upDataUser = (userId, data) => {
   return async (dispatch) => {
     try {
-      const response = await api.put(`/api/users/upd/${userId}`, {
+      await api.put(`/api/users/upd/${userId}`, {
         data,
       })
 
-      console.log(response.data)
-
-      // dispatch(actionsUsers.updateUser(response.data))
     } catch (e) {
       alert(e.response.data.detail)
     }

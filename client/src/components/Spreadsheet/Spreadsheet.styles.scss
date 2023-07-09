@@ -1,3 +1,58 @@
 .vis_form_off {
     display: none;
 }
+
+.head_table {
+  position: sticky;
+  top: 0;
+  margin: 0;
+}
+
+.table_box {
+  overflow-y: scroll;
+  height: 40rem;
+  
+}
+
+.dark {
+  background-color: #131313;
+}
+
+table {
+    td {
+      vertical-align: baseline;
+      width: 20px;
+    }
+  }
+  
+  .custom-table__action-btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+  
+    svg {
+      pointer-events: none;
+      padding: 2px;
+      width: 1.5em;
+      height: 1.5em;
+
+    }
+  }
+  
+  .btn_edit {
+    svg {
+      color: rgb(5, 155, 5);
+    }
+  }
+
+  .btn_danger {
+    svg {
+      color: red;
+    }
+  }
+
+  .btn_primary {
+    svg {
+      color: rgb(13, 110, 253);
+    }
+  }

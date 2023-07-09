@@ -11,7 +11,7 @@ module.exports = {
 
   const users = []
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 30; i++) {
     users.push({
       username: faker.name.findName(),
       phone: faker.phone.phoneNumber(),

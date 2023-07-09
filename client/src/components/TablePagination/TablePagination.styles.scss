@@ -1,13 +1,34 @@
 .custom-table {
-    &__pagination {
-      ul {
-        margin-bottom: 0;
-      }
-  
+  &__pagination {
+    ul {
+      margin-bottom: 3rem;
+    }
+    
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+    .select-box {
       .select-perpage {
         max-width: 70px;
         margin-left: 10px;
+        margin-bottom: 3rem;
       }
+
+      p {
+        margin-bottom: 3rem;
+      }
+
+      display: flex;
+      align-items: center;
+      height: 13rem;
+      margin-left: 2rem;
+      margin-right: 35rem;
     }
-  
   }
+}
+
+.dark {
+  color:#bebab3;
+  background-color:#131313;
+}
