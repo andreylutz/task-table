@@ -9,28 +9,38 @@ import { actionsModeEdit } from '../../redux/actionsCreators/actionsModeEdit'
 import { actionsThemEdit } from '../../redux/actionsCreators/actionsThem'
 
 
-export default function Header() {
+export default function Header({ isEditMode }) {
 
   const { mode } = useSelector((state) => state.modes)
   const { listInfo } = useSelector((state) => state.users)
   const { them } = useSelector((state) => state.them)
   const dispatch = useDispatch()
 
+  let explanation
+
+  if (mode) {
+    explanation = 'Добавление нового пользователя'
+  }
+
+  if (isEditMode) {
+    explanation = 'Редактирование'
+  }
+
+  if (!mode && !isEditMode) {
+    explanation = `Всего пользователей: ${listInfo.length}`
+  }
+
   return (
     <div className="header_form">
-      <h4>
-        {
-          mode ? 'Добавление нового пользователя' : `Всего пользователей: ${listInfo.length}`
-        }
-      </h4>
+      <h4>{explanation}</h4>
       <div className="header_form__section">
-        <button onClick={() => dispatch(actionsThemEdit.changeThem())}>
+        <button className="btn_thema" onClick={() => dispatch(actionsThemEdit.changeThem())}>
           {
             them ? <BrightnessHigh /> : <Moon />
           }
         </button>
         <InputGroup className="search_form__search">
-          <Form.Control />
+          <Form.Control placeholder="Введите для поиска"/>
           <InputGroup.Text id="basic-addon2">
             <Search />
           </InputGroup.Text>
@@ -40,11 +50,11 @@ export default function Header() {
             mode ? 
               (
                 <>
-                  <Button className="header_btn__primary" type="submit" form="example">Сохранить</Button>
+                  <Button className="header_btn__primary" type="submit" form="example" disabled={isEditMode}>Сохранить</Button>
                   <button className="header_btn__danger"><XSquare onClick={() => dispatch(actionsModeEdit.changeMode())}/></button>
                 </>
               ) : (
-                <Button className="header_btn__primary" onClick={() => dispatch(actionsModeEdit.changeMode())}>Добавить</Button>
+                <Button className="header_btn__primary" onClick={() => dispatch(actionsModeEdit.changeMode())} disabled={isEditMode}>Добавить</Button>
               )
           }
         </div>

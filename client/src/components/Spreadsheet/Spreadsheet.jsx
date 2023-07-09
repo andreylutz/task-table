@@ -10,13 +10,13 @@ import { removeUser, upDataUser } from '../../redux/asyncActionsCreators/asyncAc
 import FormAddNewUser from '../FormAddNewUser/FormAddNewUser'
 import TablePagination from '../TablePagination/TablePagination'
 
-export default function Spreadsheet({ headerTable }) {
+export default function Spreadsheet({ headerTable, isEditMode, setIsEditMode }) {
 
   const { listInfo } = useSelector((state) => state.users)
-  const { them } = useSelector((state) =>state.them)
+  const { them } = useSelector((state) => state.them)
+  const { mode } = useSelector((state) => state.modes)
   const dispatch = useDispatch()
 
-  const [isEditMode, setIsEditMode] = useState(false)
   const [editedRow, setEditedRow] = useState()
   const [rowId, setRowId] = useState(undefined)
 
@@ -135,12 +135,12 @@ export default function Spreadsheet({ headerTable }) {
                     {
                       isEditMode && rowId === row.id ? 
                         (
-                          <button className="custom-table__action-btn btn_primary">
-                            <Save onClick={() => handleSaveRowChanges()}/>
+                          <button className="custom-table__action-btn btn_primary" onClick={() => handleSaveRowChanges()} disabled={mode}>
+                            <Save />
                           </button>
                         ) :
                         (
-                          <button className="custom-table__action-btn btn_edit" onClick={() => handleEdit(row.id)}>
+                          <button className="custom-table__action-btn btn_edit" onClick={() => handleEdit(row.id)} disabled={mode}>
                             <PencilFill />
                           </button>
                         )

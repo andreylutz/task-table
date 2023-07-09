@@ -1,7 +1,7 @@
 import './styles/App.scss'
 
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 import Header from './components/Header/Header'
@@ -9,6 +9,10 @@ import Spreadsheet from './components/Spreadsheet/Spreadsheet'
 import { getInfoUsers } from './redux/asyncActionsCreators/asyncActionUsers'
 
 function App() {
+
+  const [isEditMode, setIsEditMode] = useState(false)
+  const { them } = useSelector((state) => state.them)
+ 
   const dispatch = useDispatch()
 
   const columns = [
@@ -25,10 +29,12 @@ function App() {
     dispatch(getInfoUsers())
   }, [dispatch])
 
+  localStorage.setItem('thema', them)
+
   return (
     <>
-      <Header />
-      <Spreadsheet headerTable={columns} />
+      <Header isEditMode={isEditMode} />
+      <Spreadsheet isEditMode={isEditMode} setIsEditMode={(row) => setIsEditMode(row)}  headerTable={columns} />
     </>
   )
 }
