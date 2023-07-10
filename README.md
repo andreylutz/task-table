@@ -11,3 +11,5 @@
     # ~ yarn install
     # ~ yarn dbr
     # ~ yarn dev
+
+База данных Postgres (username 'test', password '1234')
