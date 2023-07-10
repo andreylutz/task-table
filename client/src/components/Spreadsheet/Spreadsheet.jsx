@@ -1,11 +1,12 @@
 import './Spreadsheet.styles.scss'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Table } from 'react-bootstrap'
 import { PencilFill, Save, Trash, XSquare } from 'react-bootstrap-icons'
 
 import { actionsUsers } from '../../redux/actionsCreators/actionsUsers'
+import { actionsTable } from '../../redux/actionsCreators/actionsTable'
 import { removeUser, upDataUser } from '../../redux/asyncActionsCreators/asyncActionUsers'
 import FormAddNewUser from '../FormAddNewUser/FormAddNewUser'
 import TablePagination from '../TablePagination/TablePagination'
@@ -15,6 +16,7 @@ export default function Spreadsheet({ headerTable, isEditMode, setIsEditMode }) 
   const { listInfo } = useSelector((state) => state.users)
   const { them } = useSelector((state) => state.them)
   const { mode } = useSelector((state) => state.modes)
+  const { paginatedList } = useSelector((state) => state.paginated)
   const dispatch = useDispatch()
 
   const [editedRow, setEditedRow] = useState()
@@ -23,17 +25,26 @@ export default function Spreadsheet({ headerTable, isEditMode, setIsEditMode }) 
   const [pageSize, setPageSize] = useState(20)
   const [currentPage, setCurrentPage] = useState(1)
 
+  
   useEffect(() => {
     if (currentPage >= listInfo.length / pageSize)
       setCurrentPage(1)
   }, [pageSize])
 
-  const firstPageIndex = (currentPage - 1) * pageSize
-  const lastPageIndex = firstPageIndex + pageSize
-  
-  const paginateData = listInfo.slice(firstPageIndex, lastPageIndex)
+  useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    
+    const paginateData = listInfo.slice(firstPageIndex, lastPageIndex)
 
-  if (paginateData.length === 0) {
+    dispatch(actionsTable.paginationTable(paginateData))
+  }, [currentPage, pageSize, listInfo])
+
+  if (listInfo.length === 0) {
+    return
+  }
+
+  if (paginatedList.length === 0) {
     return
   }
 
@@ -110,7 +121,7 @@ export default function Spreadsheet({ headerTable, isEditMode, setIsEditMode }) 
           <tbody>
             <FormAddNewUser columns={headerTable} />
             {
-              paginateData.map((row) => 
+              paginatedList.map((row) => 
                 <tr key={row.id}>
                   {
                     headerTable.map((col) => 
