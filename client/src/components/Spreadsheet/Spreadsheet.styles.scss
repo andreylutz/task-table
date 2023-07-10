@@ -11,7 +11,19 @@
 .table_box {
   overflow-y: scroll;
   height: 40rem;
-  
+}
+
+.table_box::-webkit-scrollbar {
+  width: 12px;
+}
+
+.table_box::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.table_box::-webkit-scrollbar-thumb {
+  background-color: #727377b4;
+  border-radius: 20px;
 }
 
 .dark {
