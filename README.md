@@ -3,11 +3,11 @@
 
 Для старта :
 
-- дериктория client :
+- директория client :
     # ~ yarn install
     # ~ yarn start
 
-- дериктория server :
+- директория server :
     # ~ yarn install
     # ~ yarn dbr
     # ~ yarn dev
