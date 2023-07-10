@@ -7,6 +7,7 @@ import { Search, BrightnessHigh, Moon } from 'react-bootstrap-icons'
 
 import { actionsModeEdit } from '../../redux/actionsCreators/actionsModeEdit'
 import { actionsThemEdit } from '../../redux/actionsCreators/actionsThem'
+import { actionsUsers } from '../../redux/actionsCreators/actionsUsers'
 
 
 export default function Header({ isEditMode }) {
@@ -15,6 +16,19 @@ export default function Header({ isEditMode }) {
   const { listInfo } = useSelector((state) => state.users)
   const { them } = useSelector((state) => state.them)
   const dispatch = useDispatch()
+
+  // Поиск по таблице
+  const handleSearchUser = (e) => {
+    const { value } = e.target
+
+    const filteredTable = listInfo.filter(dataTable => {
+      return dataTable.username.toLowerCase().includes(value.toLowerCase())
+
+    })
+
+    dispatch(actionsUsers.searchUser(filteredTable))
+  }
+
 
   let explanation
 
@@ -40,7 +54,10 @@ export default function Header({ isEditMode }) {
           }
         </button>
         <InputGroup className="search_form__search">
-          <Form.Control placeholder="Введите для поиска"/>
+          <Form.Control 
+            placeholder="Введите для поиска"
+            onChange={handleSearchUser}
+          />
           <InputGroup.Text id="basic-addon2">
             <Search />
           </InputGroup.Text>

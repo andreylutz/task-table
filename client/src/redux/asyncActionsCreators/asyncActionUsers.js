@@ -30,7 +30,7 @@ export const addUserPost = (data) => {
 export const removeUser = (userId) => {
   return async (dispatch) => {
     try {
-      await api.delete(`/api/users/remove/${userId}`)
+      await api.delete(`/api/users/${userId}`)
 
       dispatch(actionsUsers.removeUser(userId))
     } catch (e) {
@@ -42,7 +42,7 @@ export const removeUser = (userId) => {
 export const upDataUser = (userId, data) => {
   return async (dispatch) => {
     try {
-      await api.put(`/api/users/upd/${userId}`, {
+      await api.put(`/api/users/${userId}`, {
         data,
       })
 

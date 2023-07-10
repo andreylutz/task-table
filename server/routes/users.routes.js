@@ -33,7 +33,7 @@ usersRouter.get('/', async (req, res) => {
     }
   });
 
-  usersRouter.delete('/remove/:id', async (req, res) => {
+  usersRouter.delete('/:id', async (req, res) => {
     const userId = Number(req.params.id);
     try {
       const findUser = await User.findOne({ where: { id: userId } });
@@ -50,7 +50,7 @@ usersRouter.get('/', async (req, res) => {
     }
   });
 
-  usersRouter.put('/upd/:id', async (req, res) => {
+  usersRouter.put('/:id', async (req, res) => {
     const userId = Number(req.params.id);
     const { username, phone, email, register_date, code, city } = req.body.data;
     try {
